@@ -6,6 +6,11 @@ import (
 	"github.com/dewski/adventofcode/2021/inputs"
 )
 
+func main() {
+	fmt.Printf("Part One: %d\n", increased(inputs.DayOneDepths))
+	fmt.Printf("Part Two: %d\n", partTwo(inputs.DayOneDepths))
+}
+
 // 199 (N/A - no previous measurement)
 // 200 (increased)
 // 208 (increased)
@@ -50,8 +55,8 @@ func increased(nums []int) int {
 const SlidingWindowSize = 3
 
 func partTwo(nums []int) int {
-	// Need at least two windows
-	if len(nums) < SlidingWindowSize*2 {
+	// Need at least 2 windows of numbers to be able to compare increase
+	if len(nums) < SlidingWindowSize*3 {
 		return 0
 	}
 
@@ -60,6 +65,13 @@ func partTwo(nums []int) int {
 
 	for i := 0; i < max; i++ {
 		sum := 0
+		// Lookup next N (SlidingWindowSize) elements of provided numbers from
+		// current index to calculate window size.
+		//
+		// 199  i=0, b=0
+		// 200  i=0, b=1
+		// 208  i=0, b=2
+		// 199 + 200 + 208 = 607
 		for b := 0; b < SlidingWindowSize; b++ {
 			sum += nums[i+b]
 		}
@@ -68,9 +80,4 @@ func partTwo(nums []int) int {
 	}
 
 	return increased(sums)
-}
-
-func main() {
-	fmt.Println(increased(inputs.DayOneDepths))
-	fmt.Println(partTwo(inputs.DayOneDepths))
 }
