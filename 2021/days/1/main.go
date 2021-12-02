@@ -56,7 +56,7 @@ const SlidingWindowSize = 3
 
 func partTwo(nums []int) int {
 	// Need at least 2 windows of numbers to be able to compare increase
-	if len(nums) < SlidingWindowSize*3 {
+	if len(nums) < SlidingWindowSize*2 {
 		return 0
 	}
 
